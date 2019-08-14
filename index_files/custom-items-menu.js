@@ -70,6 +70,7 @@ function addCustomLinkToLinkItems(url, title, category, color){
 function addCustomLinkToMenu(url, title, category, color){
 	storeCustomLinkItems(addCustomLinkToLinkItems(url, title, category, color));
 	buildCustomUserLinksMenu();
+	perfectSrollBars.customLinks.update();
 }
 
 function removeCustomLink(category, index){
@@ -107,17 +108,15 @@ function customLinkRemoveConfirmation(ev) {
 	}, { once: true });
 }
 
+const perfectSrollBars = {
+	customLinks:null
+}
+
 function setPerfectScrollbar(){
-	const ps = new PerfectScrollbar('#custom_links_nav', {
-		wheelSpeed: 2,
-		wheelPropagation: true,
-		minScrollbarLength: 20
-	});
-	const ps2 = new PerfectScrollbar('#userCustomLinks', {
-		wheelSpeed: 2,
-		wheelPropagation: true,
-		minScrollbarLength: 20
-	});
+	perfectSrollBars.customLinks = new PerfectScrollbar('#userCustomLinks');
+	perfectSrollBars.customLinks.update();
+	document.getElementById("userCustomLinks").scrollTop = 0;
+	document.querySelector("#userCustomLinks>div.ps__rail-y").style.opacity = 1;
 }
 
 (()=>{
