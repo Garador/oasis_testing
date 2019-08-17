@@ -14,6 +14,13 @@ var searchSources = [
   ["c", "https://swisscows.com/web?query={Q}", "SwissCows"],
   ["x", "https://searx.me/?q={Q}", "SearX"],
   ["q", "https://www.qwant.com/?q={Q}&t=web", "Qwant"],
+
+  ["y", "https://yandex.com/search/?text={Q}", "Yandex"],
+  ["m", "https://www.mojeek.com/search?q={Q}", "Mojeek"],
+  ["r", "https://metager.org/meta/meta.ger3?eingabe={Q}&focus=web", "Metager"],
+  ["w", "https://www.wolframalpha.com/input/?i={Q}", "Wolframalpha"],
+
+
   ["t", "https://solidtorrents.net/search?q={Q}", "Torrents"],
   ["a", "https://versusutil.com/?seed={Q}", " Find Alternative"],
   ["o", "https://darksearch.io/search?query={Q}", "Onion/TOR"]
@@ -721,13 +728,13 @@ function buildSystemInfo() {
   }
 }
 function buildHelp() {
-  // console.log(searchSources[0][0]);
-  // console.log(searchSources[0][2]);
+  let currentEngine = GetCookie("engine") ? parseInt(GetCookie("engine")) : "";
+  rootSearchHelp.innerHTML = "";
   for (var i = 0; i < searchSources.length; i++) {
-    // console.log(searchSources[i][0]);
-    // console.log(searchSources[i][2]);
     var li = document.createElement("li");
-    li.innerHTML = '<span>' + "!" + searchSources[i][0] + '</span>' + searchSources[i][2];
+	li.innerHTML = `<span
+		${currentEngine == i ? 'class="selected"' : ''}
+	>` + "!" + searchSources[i][0] + '</span>' + searchSources[i][2];
     li.className = "searchSources";
     li.id = i;
     rootSearchHelp.append(li);
@@ -738,7 +745,8 @@ function buildHelp() {
       var index = e.target.id;
       ssi = index;
       searchInput.placeholder = e.target.textContent.substring(2);
-      SetCookie("engine", index, 365 * 24 * 60 * 60 * 1000);
+	  SetCookie("engine", index, 365 * 24 * 60 * 60 * 1000);
+	  buildHelp();
     })
   });
 }
@@ -935,7 +943,7 @@ function handleKeydown(event) {
     searchInput === document.activeElement ||
     ignoredKeys.includes(event.keyCode))
     return;
-  //searchInput.focus();
+  searchInput.focus();
 }
 function addClass(elementID, className) {
   document.getElementById(elementID).classList.add(className);
