@@ -30,11 +30,6 @@ function buildCustomUserLinksMenu(){
 			continue;
 		}
 		let svg = "";
-		/*
-		let svg = linkMenu[categories[a]][0][0].split(`style="`)[0]
-			+`style="fill:`+linkMenu[categories[a]][0][1]
-			+";"+linkMenu[categories[a]][0][0].split(`style="`)[1];
-		*/
 
 		elements.push(`<li class="cat-separator">
 		${a == 0 ? `` : `<hr/>`}
